@@ -26,9 +26,14 @@ print("----------------")
 provincias = session.query(Provincia).all()
 for p in provincias:
     print(f"Provincia: {p.nombre} | Número de docentes: {p.obtener_numero_docentes()}")
+    # print(p.obtener_lista_parroquias())
 
 print("----------------")
 
 parroquias = session.query(Parroquia).all()
 for parroquia in parroquias:
     print(f"Parroquia: {parroquia.nombre} | Número de establecimientos: {parroquia.obtener_numero_establecimientos()}")
+    print(f"Parroquia: {parroquia.nombre} | Tipo jornada: {parroquia.obtener_tipos_jornada()}" )
+
+print("----------------")
+

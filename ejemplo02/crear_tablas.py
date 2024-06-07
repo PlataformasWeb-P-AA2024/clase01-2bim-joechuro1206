@@ -10,6 +10,9 @@ engine = create_engine(cadena_base_datos)
 
 Base = declarative_base()
 
+Session = sessionmaker(bind=engine)
+session = Session()
+
 class Provincia(Base):
     __tablename__ = 'provincia'
     id = Column(Integer, primary_key= True)
@@ -28,6 +31,12 @@ class Provincia(Base):
     def obtener_numero_docentes(self):
         numero_docentes = sum(e.numero_docentes for c in self.cantones for p in c.parroquias for e in p.establecimientos)
         return numero_docentes
+
+    #  A cada provincia preguntar la lista de parroquias
+
+    def obtener_lista_parroquias(self):
+        lista = session.query(Parroquia).join(Canton).join(Provincia).all()
+        return lista
 
 
 
@@ -73,6 +82,11 @@ class Parroquia(Base):
 
     def obtener_numero_establecimientos(self):
         return len(self.establecimientos)
+    
+    # A cada parroquia preguntarle los tipos jornada de los establecimientos
+
+    def obtener_tipos_jornada(self):
+        return list(set(e.jornada for e in self.establecimientos))
 
 class Establecimiento(Base):
     __tablename__ = 'establecimiento'
