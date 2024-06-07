@@ -53,7 +53,9 @@ class Club(Base):
         # for l in self.jugadores:
         #     resultado = resultado + l.dorsal
         # return resultado
-        # Uso de la funcion sum para sumar el dorsal de los jugadores
+        
+        # Uso de listas compresas(hacen el for en una linea)
+        # La funcion sum realiza una sumatoria del dorsal del objeto s (jugadores)
         suma = sum([s.dorsal for s in self.jugadores])
         return suma
     
