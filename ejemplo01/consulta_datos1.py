@@ -23,22 +23,31 @@ clubs = session.query(Club).all()
 
 # Se recorre la lista a través de un ciclo
 # repetitivo for en python
-print("Presentación de Clubs")
+# print("Presentación de Clubs")
 for s in clubs:
+    fundacion = s.fundacion
     print("%s" % (s))
+    # Le doy la responsabilidad al objeto (club) el respondera por si mismo
+    print("%d" % (s.obtener_anios_vida()))
+#   print("%d" % (datetime.datetime.now().year - s.fundacion))
     print("---------")
+    print("%s" % (s.obtener_dorsales_jugadores()))
+    print("%s" % (s.obtener_suma_dorsales()))
+
+    print("---------")
+
 
 # Obtener todos los registros de 
 # la entidad Jugador
-jugadores = session.query(Jugador).all()
+# jugadores = session.query(Jugador).all()
 
 # Se recorre la lista a través de un ciclo
 # repetitivo for en python
 
-print("Jugadores")
-for s in jugadores:
-    print("%s" % (s))
-    print("---------")
+# print("Jugadores")
+# for s in jugadores:
+#     print("%s" % (s))
+#     print("---------")
 
 
 

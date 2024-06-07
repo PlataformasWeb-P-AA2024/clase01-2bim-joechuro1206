@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy import Column, Integer, String, ForeignKey
-
+import datetime
 # se importa información del archivo configuracion
 from configuracion import cadena_base_datos
 
@@ -35,7 +35,28 @@ class Club(Base):
                           self.nombre, 
                           self.deporte, 
                           self.fundacion)
-
+    
+    # self es un parametro no contado
+    def obtener_anios_vida(self):
+        return datetime.datetime.now().year - self.fundacion
+    
+    # En python si no quiero terminar clase o funcion o metodo uso "pass"
+    def obtener_dorsales_jugadores(self):
+        cadena = ""
+        lista = []
+        for l in self.jugadores:
+            cadena = "%s%d\n" % (cadena, l.dorsal)
+        return cadena
+    
+    def obtener_suma_dorsales(self):
+        # resultado = 0
+        # for l in self.jugadores:
+        #     resultado = resultado + l.dorsal
+        # return resultado
+        # Uso de la funcion sum para sumar el dorsal de los jugadores
+        suma = sum([s.dorsal for s in self.jugadores])
+        return suma
+    
 class Jugador(Base):
     __tablename__ = 'jugador'
     id = Column(Integer, primary_key=True)
@@ -48,11 +69,15 @@ class Jugador(Base):
     # Mapea la relación entre las clases
     # Jugador tiene una relación con Club
     club  = relationship("Club", back_populates="jugadores")
+
+    def obtener_dorsal_jugador(self):
+        self.dorsal
     
     def __repr__(self):
         return "Jugador: %s - dorsal:%d - posición: %s" % (
                 self.nombre, self.dorsal, self.posicion)
-
+    
+            
 Base.metadata.create_all(engine)
 
 
